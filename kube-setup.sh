@@ -3,7 +3,7 @@
 yes | sudo apt-get update && yes | sudo apt-get upgrade
 yes | sudo apt-get install curl && yes | sudo apt-get install snap
 
-sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubect
+sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 
 sudo chmod +x ~/kubectl
 
@@ -26,8 +26,8 @@ sudo mkdir -p /usr/local/bin/
 
 sudo install minikube /usr/local/bin/
 
-minikube start --vm-driver=none
+sudo minikube start --vm-driver=none
 
-minikube status
+sudo minikube status
 
-kubectl cluster-info
+sudo kubectl cluster-info
