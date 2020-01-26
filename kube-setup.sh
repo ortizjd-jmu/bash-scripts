@@ -3,7 +3,7 @@
 yes | sudo apt-get update && yes | sudo apt-get upgrade
 yes | sudo apt-get install curl && yes | sudo apt-get install snap
 
-sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 
 sudo chmod +x ~/kubectl
 
