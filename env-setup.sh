@@ -14,5 +14,9 @@ yes | sudo apt update && yes | sudo apt install code
 # This installs git
 yes | sudo apt install git
 
+# Setup git
+git config --global user.name "ortizjd-jmu"
+git config --global user.email "ortizjd@dukes.jmu.edu"
+
 # Opens vscode
 code
