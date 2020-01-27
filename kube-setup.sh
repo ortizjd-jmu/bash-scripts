@@ -68,8 +68,8 @@ sudo kubectl apply -f admin-role-binding.yaml
 # get secret token for login
 sudo kubectl -n kubernetes-dashboard describe secret $(sudo kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
 
-# start kubectl dashboard
-sudo kubectl proxy
-
 #echo link for dashboard api
 echo "http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/"
+
+# start kubectl dashboard
+sudo kubectl proxy
