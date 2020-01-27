@@ -33,3 +33,43 @@ sudo minikube start --vm-driver=none
 
 # Deploy Kubectl Dashboard UI
 sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta8/aio/deploy/recommended.yaml
+
+# Create admin-user for Dashboard
+sudo touch admin-user.yaml
+
+file1="admin-user.yaml"
+echo "apiVersion: v1" > $file1
+echo "kind: ServiceAccount" >> $file1
+echo "metadata:" >> $file1
+echo "  name: admin-user" >> $file1
+echo "  namespace: kubernetes-dashboard" >> $file1
+cat $file1
+
+sudo touch admin-role-binding.yaml
+
+file2="admin-role-binding.yaml"
+echo "apiVersion: rbac.authorization.k8s.io/v1" > $file2
+echo "kind: ClusterRoleBinding" >> $file2
+echo "metadata:" >> $file2
+echo "  name: admin-user" >> $file2
+echo "roleRef:" >> $file2
+echo "  apiGroup: rbac.authorization.k8s.io" >> $file2
+echo "  kind: ClusterRole" >> $file2
+echo "  name: cluster-admin" >> $file2
+echo "subjects:" >> $file2
+echo "- kind: ServiceAccount" >> $file2
+echo "  name: admin-user" >> $file2
+echo "  namespace: kubernetes-dashboard" >> $file2
+cat $file2
+
+# apply rbac
+sudo kubectl apply -f admin-role-binding.yaml
+
+# get secret token for login
+sudo kubectl -n kubernetes-dashboard describe secret $(sudo kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
+
+# start kubectl dashboard
+sudo kubectl proxy
+
+#echo link for dashboard api
+echo "http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/"
