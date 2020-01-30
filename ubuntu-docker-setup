@@ -1,0 +1,21 @@
+yes | sudo apt-get update && yes | sudo apt-get upgrade 
+
+# Install prerequiste packages
+yes | sudo apt install apt-transport-https ca-certificates curl software-properties-common
+
+# Add GPG key for Docker repo
+yes | sudo apt-get install curl
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+# Add Docker repo to APT sources
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+sudo apt update
+sudo apt-cache policy docker-ce
+
+# Install Docker
+yes | sudo apt install docker-ce
+
+# Add user to Docker group
+sudo usermod -aG docker $(ortizjd)
+su - $(ortizjd)
+id -nG
